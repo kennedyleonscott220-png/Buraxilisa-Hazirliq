@@ -525,7 +525,7 @@ function boost(){
  const weak=Object.entries(MS).filter(([k,v])=>Array.isArray(v)&&v[1]>=2).sort((a,b)=>(a[1][0]/Math.max(1,a[1][1]))-(b[1][0]/Math.max(1,b[1][1]))).slice(0,6);
  const streak=(()=>{let n=0;for(let i=0;i<366;i++){let d=new Date(Date.now()-i*864e5).toISOString().slice(0,10);if((G.d[d]||0)>=G.g)n++;else if(i>0)break}return n})();
  const xp=Math.max(0,H.reduce((a,x)=>a+Math.max(0,Math.round(10*(x.t||0)/Math.max(1,x.m||1))),0)+Object.values(G.d||{}).reduce((a,n)=>a+n,0));
- A.innerHTML=`<div class="top"><button onclick="home()">← Geri</button><span class="sp"></span><span class="m">V1.0</span></div><h1>🚀 Ağıllı hazırlıq</h1><p class="m">Nəticələrinə əsaslanan təkrar planı və imtahan alətləri.</p>
+ A.innerHTML=`<div class="top"><button onclick="home()">← Geri</button><span class="sp"></span><span class="m">V1.1</span></div><h1>🚀 Ağıllı hazırlıq</h1><p class="m">Nəticələrinə əsaslanan təkrar planı və imtahan alətləri.</p>
  <div class="card hero"><b>🏆 Öyrənmə göstəricilərin</b><div class="stats-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px"><div class="card"><div class="m">Təxmini XP</div><div style="font-size:25px;font-weight:850">${xp}</div></div><div class="card"><div class="m">Ardıcıl hədəf günləri</div><div style="font-size:25px;font-weight:850">${streak} 🔥</div></div><div class="card"><div class="m">Bu gün cavablanan</div><div style="font-size:25px;font-weight:850">${done}</div></div><div class="card"><div class="m">Toplanmış səhvlər</div><div style="font-size:25px;font-weight:850">${W.length}</div></div></div><p class="m">XP motivasiya göstəricisidir; rəsmi imtahan balı deyil.</p></div>
  <h2>🗓️ Bu gün üçün hazırlıq planı</h2><div class="card"><p class="m">Qısa və davamlı hazırlaş: əvvəl səhvlərini təkrar et, sonra zəif mövzudan mini-test həll et, sonda nəticəni yoxla.</p><div class="meter"><i style="width:${Math.min(100,Math.round(100*done/Math.max(1,G.g)))}%"></i></div><p><b>${Math.max(0,G.g-done)}</b> sual qalıb gündəlik hədəfə.</p><button class="p" ${W.length?'':'disabled'} onclick="startX(wrongList())">1 · Səhvləri təkrar et</button><button onclick="tab('prac')">2 · Mövzu mini-testi</button><button onclick="tab('stat')">3 · Nəticələri yoxla</button></div>
  <h2>🎯 Zəif mövzular</h2><div class="card">${weak.length?weak.map(([k,v])=>`<div style="margin:10px 0"><b>${k.replace('|',' · ')}</b><div class="meter"><i style="width:${Math.min(100,Math.round(100*(v[0]||0)/Math.max(1,v[1]||1)))}%"></i></div><span class="m">${v[0]||0} düzgün / ${v[1]||0} cəhd</span></div>`).join(''):'<p class="m">Mövzular üzrə daha dəqiq təhlil üçün bir neçə məşq tamamla.</p>'}${Object.keys(topics).length?'<hr><b>Səhvlərin mövzu xəritəsi</b>'+Object.entries(topics).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,n])=>`<p style="margin:8px 0">${k}: <b class="no">${n} səhv</b></p>`).join(''):''}<button class="p" ${weak.length?'':'disabled'} onclick="weak()">Zəif mövzulardan test</button> <button ${W.length?'':'disabled'} onclick="startX(wrongList())">Səhvləri təkrar et</button></div>
@@ -1323,7 +1323,7 @@ window.vocHome=function(){_vh.apply(this,arguments);try{
 })()}catch(e){console.warn(e)}
 
 /* PWA */
-var APP_VER='V1.0';
+var APP_VER='V1.1';
 try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')==0){
 const ru=()=>document.documentElement.lang=='ru',T=(a,r)=>ru()?r:a;
 const vnum=v=>{const m=/(\d+)\.(\d+)/.exec(v||'');return m?(+m[1])*1000+(+m[2]):0};
@@ -1399,7 +1399,7 @@ const NEWS_PAGES=[
  {icon:'🏆',title:['Hədəflər və nailiyyətlər','Цели и достижения'],lead:['Hazırlıq ritmini izləmək daha rahatdır.','Следить за регулярностью занятий стало проще.'],body:['Gündəlik sual hədəfini Ayarlardan seç, ardıcıl hədəf günlərini və təxmini XP göstəricisini ağıllı hazırlıq mərkəzində izlə. XP motivasiya göstəricisidir, rəsmi imtahan balı deyil.','Установи дневную цель по количеству вопросов и смотри серию дней и примерный XP в центре подготовки. XP — мотивационный показатель, не официальный экзаменационный балл.']},
  {icon:'📚',title:['Lüğət və təkrar','Словарь и повторение'],lead:['Mövcud lüğət dəstləri və məşq alətləri saxlanılıb.','Существующие словарные наборы и практика сохранены.'],body:['Lüğət bölməsindən sözləri öyrənməyə davam et, məşq və təkrar alətlərindən istifadə et. A1–C1 siyahılarının tamlığı və tərcümələri ayrıca yoxlanmalı ola bilər; bu buraxılış bütün PDF-lərin tam uyğunlaşdırıldığını iddia etmir.','Продолжай учить слова в словаре и используй практику для повторения. Полноту списков A1–C1 и переводы может потребоваться отдельно проверить; этот выпуск не заявляет о полной сверке всех PDF.']},
  {icon:'⏱️',title:['İmtahan və nəticələr','Экзамен и результаты'],lead:['Sınaqlara, məşqlərə və gedişata daha sürətli keçid.','Быстрый переход к экзаменам, практике и прогрессу.'],body:['Buraxılış və blok imtahanı bölmələri, mövzu mini-testləri, səhvlərin təkrarı və nəticə tarixçəsi mövcud qaydada işləməyə davam edir. İmtahanı tamamladıqdan sonra gedişat bölməsində nəticələrini yoxla.','Разделы выпускного и блочного экзамена, тематические мини-тесты, повтор ошибок и история результатов сохранены. После экзамена проверь результаты в разделе прогресса.']},
- {icon:'🛡️',title:['Daha etibarlı yeniləmə','Надёжнее обновление'],lead:['V1.0 — böyük funksional yeniləmə.','V1.0 — крупное функциональное обновление.'],body:['Məlumatların ehtiyat nüsxəsini Ayarlardan JSON faylına çıxara və sonra bərpa edə bilərsən. Yeniləmədən sonra ilk açılışda nəticə və mövzuların saxlandığını yoxla. Görünüş üslubları, o cümlədən Liquid Glass və Liquid Glass Lite, saxlanılıb.','В настройках можно экспортировать данные в JSON и восстановить их позже. После обновления проверь, что результаты и темы сохранились. Стили оформления, включая Liquid Glass и Liquid Glass Lite, сохранены.']}
+ {icon:'🛡️',title:['Daha etibarlı yeniləmə','Надёжнее обновление'],lead:['V1.1 — donmaların azaldılması və performans optimizasiyası.','V1.1 — уменьшение зависаний и оптимизация производительности.'],body:['Donmaların azalması üçün interfeys yoxlamaları və animasiya mexanizmləri yüngülləşdirilib. Məlumatların ehtiyat nüsxəsini Ayarlardan JSON faylına çıxara və sonra bərpa edə bilərsən. Yeniləmədən sonra nəticə və mövzuların saxlandığını yoxla. Görünüş üslubları saxlanılıb.','Для уменьшения зависаний облегчены проверки интерфейса и механизмы анимации. В настройках можно экспортировать данные в JSON и восстановить их позже. После обновления проверь, что результаты и темы сохранились. Стили оформления сохранены.']}
 ];
 const nl=()=>document.documentElement.lang==='ru';
 window.showNews=function(force){try{
@@ -1418,6 +1418,19 @@ window.showNews=function(force){try{
  }catch(e){console.warn(e)}};
 addEventListener('load',()=>setTimeout(()=>{try{if(localStorage.getItem('newsSeen')!==APP_VER)window.showNews()}catch(e){}},900));
 }catch(e){}
+
+/* V1.1: tətbiqin içindən istənilən vaxt Yeniliklər bölməsini açmaq */
+try{
+ function mountNewsShortcut(){
+  if(!document.body||document.getElementById('v1NewsShortcut'))return;
+  const b=document.createElement('button');b.id='v1NewsShortcut';b.type='button';
+  b.textContent='🆕 V1 yenilikləri';b.setAttribute('aria-label','V1 yeniliklərini aç');
+  b.style.cssText='position:fixed;right:14px;bottom:94px;z-index:9998;border:1px solid var(--p);border-radius:999px;padding:11px 15px;background:var(--c);color:var(--t);font:800 13px/1.2 inherit;box-shadow:0 8px 24px rgba(0,0,0,.22);cursor:pointer;max-width:calc(100vw - 28px)';
+  b.addEventListener('click',()=>{if(typeof window.showNews==='function')window.showNews(true)});
+  document.body.appendChild(b);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountNewsShortcut,{once:true});else mountNewsShortcut();
+}catch(e){console.warn(e)}
 
 /* Ana səhifənin sadələşdirilməsi */
 try{
@@ -1696,7 +1709,10 @@ if(sb){
  g.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:12px;z-index:6;width:42px;height:42px;min-height:0;padding:0;margin:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c);border:1px solid var(--b);box-shadow:var(--sh)';
  document.body.appendChild(g);
  const sync=()=>{g.style.display=getComputedStyle(nav).display=='none'?'none':'flex';g.style.color=(typeof TAB!='undefined'&&TAB=='set')?'var(--p)':'var(--t)';g.style.borderColor=(typeof TAB!='undefined'&&TAB=='set')?'var(--p)':'var(--b)'};
- setInterval(sync,300);sync();
+ // Yüzlərlə lazımsız yoxlama əvəzinə yalnız interfeys dəyişəndə yenilə.
+ sync();
+ addEventListener('resize',sync,{passive:true});
+ document.addEventListener('click',e=>{if(e.target.closest('button'))sync()},{passive:true});
 }
 }
 
@@ -1833,7 +1849,10 @@ window.solHTML=function(x){
   if(window.__v2630Motion)return;
   window.__v2630Motion=true;
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduced)return;
+  const smallScreen=window.matchMedia&&window.matchMedia('(max-width: 760px)').matches;
+  const lowPower=navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4;
+  // Mobil və zəif cihazlarda MutationObserver animasiyalarını söndür: UI daha yüngül işləsin.
+  if(reduced||smallScreen||lowPower)return;
   const selector='main,section,[role="dialog"],.page,.screen,.modal,.sheet,.news-card,.update-card';
   const seen=new WeakSet();
   const animateRoot=(root)=>{
@@ -1843,7 +1862,7 @@ window.solHTML=function(x){
     if(root.querySelectorAll){
       root.querySelectorAll(selector).forEach(el=>{if(candidates.length<10)candidates.push(el)});
     }
-    candidates.slice(0,10).forEach((el,i)=>{
+    candidates.slice(0,4).forEach((el,i)=>{
       if(seen.has(el)||el.offsetParent===null)return;
       seen.add(el);
       el.style.animation='v2630Rise 320ms cubic-bezier(.2,.75,.25,1) both';
